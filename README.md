@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
@@ -57,3 +58,7 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+=======
+# Demo Online Banking & Payment Platform
+Laravel-based demo banking application   Features:   - User authentication   - Account balance management   - Top-up (credit) simulation   - Peer-to-peer money transfer (fake funds)   - Wave CI inspired user flow    For educational purposes only — no real payments or financial data.
+>>>>>>> bf0c7e808418e5a19b680c8086cb513f254b5f3d
