@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Api\WalletController;
+use App\Http\Controllers\WalletController;
 
 
 Route::get('/', function () {
@@ -17,8 +17,8 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
  
  Route::post('/wallet/top-up', [WalletController::class, 'topUp']);
-
-    Route::get('/dashboard', function () {
+ Route::post('/wallet/transfer', [WalletController::class, 'transfer' ]);
+Route::get('/dashboard', function () {
 
 
         return response()->json([

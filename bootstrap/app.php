@@ -18,7 +18,9 @@ return Application::configure(basePath: dirname(__DIR__))
         '/dashboard',
         '/register',
         '/logout',
-         '/wallet/top-up'
+        '/wallet/top-up',
+        '/wallet/transfer',
+
 
     ]);
     })
