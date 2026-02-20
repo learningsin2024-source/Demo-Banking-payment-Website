@@ -56,11 +56,14 @@ class AuthController extends Controller
 
               if(Auth::attempt($validated)){
                 
-                $request->session()->regenerate();
+            
+
+                $token = $user->createToken('api-token', ['*'], now()->addDays(7) )->plainTextToken;
 
                 return response()->json([
                     'message' => 'Login successfully',
-                    'user' => Auth::user()
+                    'user' => Auth::user(),
+                    'token'   => $token
 
                 ]);
 
@@ -79,7 +82,7 @@ class AuthController extends Controller
 
         Auth::logout();
 
-        $request->session()->invalidate();
+       $request->user()->currentAccessToken()->delete();
 
         return response()->json([
             'message' => 'You have successfully logged out'
@@ -89,4 +92,6 @@ class AuthController extends Controller
        
 
     }
+
+    
 }
