@@ -14,6 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
 
+       $middleware->statefulApi();
+
         // This is the key part — override redirect for authenticated users on API/JSON requests
         $middleware->redirectUsersTo(function (Request $request) {
             if ($request->expectsJson() || $request->is('api/*')) {
