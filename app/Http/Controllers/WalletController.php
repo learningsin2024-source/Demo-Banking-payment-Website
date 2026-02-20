@@ -124,6 +124,24 @@ public function balance(Request $request){
 
     }
 
+
+    public function transactions(Request $request){
+       
+    $user = Auth()->user();
+
+    $transactions = Transaction::where('sender_id', $user->id)
+    ->orWhere('receiver_id', $user->id)
+    ->orderBy('created_at', 'desc')
+    ->get();
+
+     return response()->json([
+    'transactions' => $transactions
+]);
+  
+  
+    }
+
+ 
     
 }
 
