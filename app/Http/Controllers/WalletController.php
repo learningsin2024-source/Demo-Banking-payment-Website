@@ -22,7 +22,7 @@ class WalletController extends Controller
     $user = $request->user();
 
     DB::transaction(function () use ($user, $validated) {
-        $reference = 'TXN-' . strtoupper(Str::random(10));
+
 
         Transaction::create([
             'sender_id'   => null,
@@ -30,7 +30,7 @@ class WalletController extends Controller
             'amount'      => $validated['amount'],
             'type'        => 'topup',
             'status'      => 'success',
-            'reference'   => $reference,
+            'reference'   => $reference = generate_txn_reference('WDL')
         ]);
 
         $user->increment('balance', $validated['amount']);
@@ -68,22 +68,41 @@ public function transfer(Request $request)
         $receiver = User::where('email', $validated['receiver_email'])
             ->lockForUpdate()
             ->first();
-
         
+ $amount = $validated['amount'];
+
+ 
+            Transaction::create([
+    'sender_id'    => $sender->id,
+    'receiver_id'  => $receiver->id,
+    'amount'       => $amount,
+    'type'         => 'transfer',
+    'status'       => 'success',   
+    'reference'    => generate_txn_reference('WDL')
+  
+]);
+        
+    
+
+
+
+    
         if ($sender->balance < $validated['amount']) {
             return response()->json([
                 'message' => 'Insufficient funds.'
             ], 422);
         }
-
-        
-        $amount = $validated['amount'];
+   
 
         $sender->balance -= $amount;
         $receiver->balance += $amount;
 
         $sender->save();
         $receiver->save();
+
+        
+    
+    
 
         
         return response()->json([
