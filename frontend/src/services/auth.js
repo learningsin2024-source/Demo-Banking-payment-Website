@@ -1,10 +1,10 @@
-const login = async (credentials) => {
+ export const login = async (credentials) => {
   await axios.get('/sanctum/csrf-cookie');
   const response = await axios.post('/api/login', credentials);
   return response.data.user; 
 };
 
-const getUser = async () => {
+ export const getUser = async () => {
   try {
     const response = await axios.get('/api/user');
     return response.data;
@@ -17,7 +17,7 @@ const getUser = async () => {
   }
 };
 
-const logout = async () => {
+ export const logout = async () => {
   await axios.post('/api/logout');
  
 };
