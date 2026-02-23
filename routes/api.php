@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\WalletController;
+use Illuminate\Http\Request;
 
 
 Route::get('/test', function () {
@@ -16,6 +17,9 @@ Route::middleware('auth:sanctum')->group(function () {
  Route::post('/wallet/transfer', [WalletController::class, 'transfer' ]);
   Route::get('/wallet/balance', [WalletController::class, 'balance' ]);
     Route::get('/transactions', [WalletController::class, 'transactions' ]);
+Route::get('/user', function(Request $request){
+   return  $request->user();
+});
 Route::get('/dashboard', function () {
 
 
