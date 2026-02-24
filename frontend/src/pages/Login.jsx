@@ -1,7 +1,9 @@
+import Input from "../components/ui/Input";
+
 function Login() {
     return (
         <>
-            <h2>Hello Login</h2>
+            <Input text="Login to dashboard" submit="Login Now"></Input>
         </>
     );
 }

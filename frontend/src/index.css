@@ -1,6 +1,8 @@
-
-
 @import "tailwindcss";
+@import "flowbite-react/plugin/tailwindcss";
+@source "../.flowbite-react/class-list.json";
+
+
 
 body{
     margin: 0;
@@ -10,20 +12,3 @@ body{
 
 
 
-@theme {
-  --spacing: 0.2rem;
-}
-
-html {
-  font-size: 14px;
-  @apply antialiased;
-}
-
-
-
-h1, h2, h3, h4 {
-  @apply font-medium tracking-tight;
-}
-
-h1 { @apply text-2xl; }  
-h2 { @apply text-xl; }
