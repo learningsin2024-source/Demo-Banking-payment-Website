@@ -1,46 +1,24 @@
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-
-const Input = ({ text, submit }) => {
+const Input = ({ label, error, className = "", ...props }) => {
     return (
-        <>
-            <form className="flex max-w-md flex-col gap-4 mx-auto my-10">
-                <div>
-                    <h4 className="text-center text-xl ">{text}</h4>
-                    <div className="mb-2 block">
-                        <Label htmlFor="email1" className="dark:text-black">
-                            Your email
-                        </Label>
-                    </div>
-                    <TextInput
-                        id="email1"
-                        type="email"
-                        placeholder="name@flowbite.com"
-                        required
-                        className="dark:bg-white dark:text-black"
-                    />
-                </div>
-                <div>
-                    <div className="mb-2 block">
-                        <Label htmlFor="password1" className="dark:text-black">
-                            Your password
-                        </Label>
-                    </div>
-                    <TextInput
-                        id="password1"
-                        type="password"
-                        required
-                        className="dark:bg-white dark:text-black"
-                    />
-                </div>
-                <div className="flex items-center gap-2">
-                    <Checkbox id="remember" />
-                    <Label htmlFor="remember" className="dark:text-black">
-                        Remember me
-                    </Label>
-                </div>
-                <Button type="submit">{submit}</Button>
-            </form>
-        </>
+        <div className="flex flex-col gap-1 my-10 ">
+            {label && (
+                <label className="text-sm font-medium text-gray-700">
+                    {label}
+                </label>
+            )}
+
+            <input
+                className={`
+          px-3 py-2 border rounded-lg 
+          focus:outline-none focus:ring-2 focus:ring-slate-900
+          ${error ? "border-red-500" : "border-gray-300"}
+          ${className}
+        `}
+                {...props}
+            />
+
+            {error && <span className="text-sm text-red-500">{error}</span>}
+        </div>
     );
 };
 
