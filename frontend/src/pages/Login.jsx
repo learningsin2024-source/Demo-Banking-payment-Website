@@ -1,16 +1,25 @@
 import Input from "../components/ui/Input";
-import FormField from "../components/ui/FormField";
+
+import Authlayout from "../layout/AuthLayout";
+import Button from "../components/ui/Button";
 
 function Login() {
     return (
         <>
-            <FormField label="Email" error="Invalid email">
+            <Authlayout logo="banking-website\frontend\src\assets\react.svg">
                 <Input
                     type="email"
                     placeholder="Input Your Email"
-                    error="something wrong"
+                    label="E-mail"
                 ></Input>
-            </FormField>
+                <Input
+                    type="password"
+                    placeholder="Input Your Passoword"
+                    label="Password"
+                ></Input>
+
+                <Button> Login Now</Button>
+            </Authlayout>
         </>
     );
 }

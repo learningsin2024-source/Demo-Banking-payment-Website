@@ -1,6 +1,6 @@
 const Input = ({ label, error, className = "", ...props }) => {
     return (
-        <div className="flex flex-col gap-1 my-10 ">
+        <div className="flex flex-col gap-1 my-3.5 ">
             {label && (
                 <label className="text-sm font-medium text-gray-700">
                     {label}
