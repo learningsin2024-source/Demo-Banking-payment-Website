@@ -2,11 +2,13 @@ import Input from "../components/ui/Input";
 
 import Authlayout from "../layout/AuthLayout";
 import Button from "../components/ui/Button";
+import Navbar from "../layout/Navbar";
 
 function Login() {
     return (
         <>
-            <Authlayout logo="banking-website\frontend\src\assets\react.svg">
+            <Navbar></Navbar>
+            <Authlayout logo="" text="Login To Your Dashboard">
                 <Input
                     type="email"
                     placeholder="Input Your Email"
@@ -18,7 +20,7 @@ function Login() {
                     label="Password"
                 ></Input>
 
-                <Button> Login Now</Button>
+                <Button loading={true}> Login Now</Button>
             </Authlayout>
         </>
     );

@@ -2,7 +2,9 @@
 @import "flowbite-react/plugin/tailwindcss";
 @source "../.flowbite-react/class-list.json";
 
-
+@theme {
+  --font-sans: "Poppins", sans-serif;
+}
 
 body{
     margin: 0;
