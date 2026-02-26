@@ -4,10 +4,12 @@ import { Route, Routes } from "react-router";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Navbar from "./layout/Navbar";
 
 function App() {
     return (
         <>
+            <Navbar />
             <Routes>
                 <Route path="/login" element={<Login />} />
 

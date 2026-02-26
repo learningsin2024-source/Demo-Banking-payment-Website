@@ -2,9 +2,16 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Context/Authcontext";
 import Button from "../components/ui/Button";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
     const { user, isAuthenticated, logout, loading } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handlelogout = async () => {
+        await logout();
+        navigate("/login");
+    };
 
     if (loading) return null;
 
@@ -52,7 +59,10 @@ const Navbar = () => {
                                     </span>
                                 </div>
 
-                                <Button variant="secondary" onClick={logout}>
+                                <Button
+                                    variant="secondary"
+                                    onClick={handlelogout}
+                                >
                                     Logout
                                 </Button>
                             </>

@@ -12,7 +12,7 @@ function AuthProvider({ children }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loading, SetLoading] = useState(false);
 
-    const login = async () => {
+    const login = async (Credentials) => {
         SetLoading(true);
 
         try {
@@ -31,18 +31,19 @@ function AuthProvider({ children }) {
         try {
             await apilogOut();
         } catch (error) {
-            throw error;
+            console.log(error);
         } finally {
             setUser(null);
             setIsAuthenticated(false);
+            localStorage.removeItem("token"); // clear token here as safety net
         }
     };
-
     const checkAuth = async (params) => {
         SetLoading(true);
         try {
             const checkuser = await getUser();
             setIsAuthenticated(true);
+            setUser(checkuser);
         } catch (error) {
             setUser(null);
             setIsAuthenticated(false);

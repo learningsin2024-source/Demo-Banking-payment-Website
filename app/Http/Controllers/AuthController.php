@@ -58,7 +58,7 @@ class AuthController extends Controller
                 
             
 
-                $token = $user->createToken('api-token', ['*'], now()->addDays(7) )->plainTextToken;
+         $token = $user->createToken('api-token', ['*'], now()->addHours(8))->plainTextToken;
 
                 return response()->json([
                     'message' => 'Login successfully',
@@ -78,13 +78,10 @@ class AuthController extends Controller
     }
 
 
-   public function logout(Request $request)
+public function logout(Request $request)
 {
-    Auth::guard('web')->logout();           // or just Auth::logout()
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-
+    $request->user()->currentAccessToken()->delete();
     return response()->json(['message' => 'Logged out']);
-}}
+}
 
-    
+}

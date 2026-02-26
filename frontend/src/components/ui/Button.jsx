@@ -4,6 +4,7 @@ const Button = ({
     disabled = false,
     variant = "primary",
     className = "",
+
     ...props
 }) => {
     const isDisabled = disabled || loading;

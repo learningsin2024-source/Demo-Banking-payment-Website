@@ -1,28 +1,64 @@
+import { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Input from "../components/ui/Input";
-
-import Authlayout from "../layout/AuthLayout";
+import AuthLayout from "../layout/AuthLayout";
 import Button from "../components/ui/Button";
-import Navbar from "../layout/Navbar";
+import { AuthContext } from "../Context/Authcontext";
 
 function Login() {
+    const { login, loading, isAuthenticated } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate("/dashboard");
+        }
+    }, [isAuthenticated]);
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        setError("");
+
+        try {
+            await login({ email, password }); // wait for Laravel
+            navigate("/"); // redirect on success
+        } catch (err) {
+            console.log(err.response?.status, err.response?.data);
+            setError(err.response?.data?.message || "invalid credentials");
+        }
+    };
+
     return (
-        <>
-            <Navbar></Navbar>
-            <Authlayout logo="" text="Login To Your Dashboard">
+        <AuthLayout logo="" title="Login To Your Dashboard">
+            <form className="flex flex-col" onSubmit={handleSubmit}>
+                {error && <p className="text-red-500 mb-2">{error}</p>}
+
                 <Input
                     type="email"
                     placeholder="Input Your Email"
                     label="E-mail"
-                ></Input>
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+
                 <Input
                     type="password"
-                    placeholder="Input Your Passoword"
+                    placeholder="Input Your Password"
                     label="Password"
-                ></Input>
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
 
-                <Button loading={true}> Login Now</Button>
-            </Authlayout>
-        </>
+                <Button type="submit" disabled={loading}>
+                    {loading ? "Logging in..." : "Login Now"}
+                </Button>
+            </form>
+        </AuthLayout>
     );
 }
 
