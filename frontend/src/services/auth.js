@@ -6,6 +6,17 @@ export const login = async (credentials) => {
   return response.data.user;
 };
 
+
+export const register = async (credentials)=>{
+  const response = await api.post('/api/register', credentials)
+return response.data.user
+
+
+
+};
+
+
+
 export const getUser = async () => {
   try {
     const response = await api.get('/api/user');

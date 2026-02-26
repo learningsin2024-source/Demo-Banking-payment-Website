@@ -3,6 +3,7 @@ import {
     login as apiLogin,
     getUser,
     logout as apilogOut,
+    register as registerApi,
 } from "../services/auth.js";
 
 export const AuthContext = createContext();
@@ -35,23 +36,33 @@ function AuthProvider({ children }) {
         } finally {
             setUser(null);
             setIsAuthenticated(false);
-            localStorage.removeItem("token"); // clear token here as safety net
+            localStorage.removeItem("token");
         }
     };
     const checkAuth = async (params) => {
         SetLoading(true);
         try {
             const checkuser = await getUser();
-            setIsAuthenticated(true);
-            setUser(checkuser);
         } catch (error) {
-            setUser(null);
-            setIsAuthenticated(false);
         } finally {
             SetLoading(false);
         }
     };
 
+    const registerUser = async (credentials) => {
+        SetLoading(true);
+
+        try {
+            const user = await registerApi(credentials);
+            setIsAuthenticated(true);
+            return user;
+        } catch (error) {
+            setIsAuthenticated(false);
+            throw error;
+        } finally {
+            SetLoading(false);
+        }
+    };
     useEffect(() => {
         checkAuth();
     }, []);
@@ -63,6 +74,7 @@ function AuthProvider({ children }) {
         login,
         logout,
         checkAuth,
+        registerUser,
     };
 
     return (
