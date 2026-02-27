@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../Context/Authcontext";
 import Button from "../components/ui/Button";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
     const { user, isAuthenticated, logout, loading } = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
+    const currentPath = location.pathname;
 
     const handlelogout = async () => {
         await logout();
@@ -29,7 +31,7 @@ const Navbar = () => {
 
                     {/* Right Side */}
                     <div className="flex items-center gap-6 text-sm font-medium">
-                        {!isAuthenticated ? (
+                        {!user ? (
                             <>
                                 {/* About Link */}
                                 <Link
@@ -38,14 +40,17 @@ const Navbar = () => {
                                 >
                                     About
                                 </Link>
+                                {currentPath !== "/login" && (
+                                    <Link to="/login">
+                                        <Button>Login</Button>
+                                    </Link>
+                                )}
 
-                                <Link to="/login">
-                                    <Button>Login</Button>
-                                </Link>
-
-                                <Link to="/signup">
-                                    <Button>SignUp</Button>
-                                </Link>
+                                {currentPath !== "/signup" && (
+                                    <Link to="/signup">
+                                        <Button>SignUp</Button>
+                                    </Link>
+                                )}
                             </>
                         ) : (
                             <>

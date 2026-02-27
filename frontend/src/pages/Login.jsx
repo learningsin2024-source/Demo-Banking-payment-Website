@@ -4,6 +4,7 @@ import Input from "../components/ui/Input";
 import AuthLayout from "../layout/AuthLayout";
 import Button from "../components/ui/Button";
 import { AuthContext } from "../Context/Authcontext";
+import { Link } from "react-router-dom";
 
 function Login() {
     const { login, loading, isAuthenticated } = useContext(AuthContext);
@@ -11,7 +12,7 @@ function Login() {
 
     useEffect(() => {
         if (isAuthenticated) {
-            navigate("/dashboard");
+            navigate("/");
         }
     }, [isAuthenticated]);
 
@@ -26,7 +27,7 @@ function Login() {
 
         try {
             await login({ email, password }); // wait for Laravel
-            navigate("/"); // redirect on success
+            navigate("/dashboard"); // redirect on success
         } catch (err) {
             console.log(err.response?.status, err.response?.data);
             setError(err.response?.data?.message || "invalid credentials");
@@ -57,6 +58,9 @@ function Login() {
                 <Button type="submit" disabled={loading}>
                     {loading ? "Logging in..." : "Login Now"}
                 </Button>
+                <Link to="/signup" className="mt-3.5 underline">
+                    <span>Doesn't have an account ? signup</span>
+                </Link>
             </form>
         </AuthLayout>
     );

@@ -3,8 +3,7 @@ import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import { AuthContext } from "../Context/Authcontext";
 import AuthLayout from "../layout/AuthLayout";
-
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Signup = () => {
     const { registerUser, loading, isAuthenticated } = useContext(AuthContext);
@@ -37,18 +36,19 @@ const Signup = () => {
                     {error && <p className="text-red-500 mb-2">{error}</p>}
 
                     <Input
-                        type="email"
-                        placeholder="Input Your Email"
-                        label="E-mail"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <Input
                         type="text"
                         placeholder="Input Your Username"
                         label="Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                    />
+
+                    <Input
+                        type="email"
+                        placeholder="Input Your Email"
+                        label="E-mail"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
 
                     <Input
@@ -62,6 +62,9 @@ const Signup = () => {
                     <Button type="submit" disabled={loading}>
                         {loading ? "signing in..." : "SignIn Now"}
                     </Button>
+                    <Link to="/login" className="mt-3.5 underline">
+                        <span>Have an account ? Login</span>
+                    </Link>
                 </form>
             </AuthLayout>
         </>

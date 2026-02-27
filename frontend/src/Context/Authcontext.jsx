@@ -11,7 +11,7 @@ export const AuthContext = createContext();
 function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [loading, SetLoading] = useState(false);
+    const [loading, SetLoading] = useState(true);
 
     const login = async (Credentials) => {
         SetLoading(true);
@@ -39,11 +39,16 @@ function AuthProvider({ children }) {
             localStorage.removeItem("token");
         }
     };
-    const checkAuth = async (params) => {
+    const checkAuth = async () => {
         SetLoading(true);
         try {
             const checkuser = await getUser();
+
+            setUser(checkuser); // add this
+            setIsAuthenticated(!!checkuser); // add this
         } catch (error) {
+            setUser(null);
+            setIsAuthenticated(false);
         } finally {
             SetLoading(false);
         }
