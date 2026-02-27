@@ -4,6 +4,7 @@ import Input from "../components/ui/Input";
 import { AuthContext } from "../Context/Authcontext";
 import AuthLayout from "../layout/AuthLayout";
 import { useNavigate, Link } from "react-router-dom";
+import Navbar from "../layout/Navbar";
 
 const Signup = () => {
     const { registerUser, loading, isAuthenticated } = useContext(AuthContext);
@@ -22,7 +23,7 @@ const Signup = () => {
 
         try {
             await registerUser({ name, email, password }); // wait for Laravel
-            navigate("/");
+            navigate("/dashboard");
         } catch (err) {
             console.log(err.response?.status, err.response?.data);
             setError(err.response?.data?.message || "invalid credentials");
@@ -31,6 +32,7 @@ const Signup = () => {
 
     return (
         <>
+            <Navbar />
             <AuthLayout logo="" title="Signup To Get Started">
                 <form className="flex flex-col" onSubmit={handleSubmit}>
                     {error && <p className="text-red-500 mb-2">{error}</p>}
@@ -62,9 +64,6 @@ const Signup = () => {
                     <Button type="submit" disabled={loading}>
                         {loading ? "signing in..." : "SignIn Now"}
                     </Button>
-                    <Link to="/login" className="mt-3.5 underline">
-                        <span>Have an account ? Login</span>
-                    </Link>
                 </form>
             </AuthLayout>
         </>

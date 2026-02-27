@@ -22,12 +22,14 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-6">
                 <div className="flex h-16 items-center justify-between">
                     {/* Brand */}
-                    <Link
-                        to="/"
-                        className="text-2xl  bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"
-                    >
-                        Banking Website
-                    </Link>
+                    <div className="">
+                        <h2 className="text-xl font-bold text-blue-600">
+                            💳 BankApp
+                        </h2>
+                        <p className="text-xs text-gray-400 mt-1">
+                            Personal Banking
+                        </p>
+                    </div>
 
                     {/* Right Side */}
                     <div className="flex items-center gap-6 text-sm font-medium">
