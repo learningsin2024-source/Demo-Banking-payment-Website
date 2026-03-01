@@ -16,7 +16,7 @@ function ProtectedRoute() {
             </>
         );
 
-    return user ? <Outlet /> : nav("/login");
+    return user ? <Outlet /> : nav("/");
 }
 
 export default ProtectedRoute;

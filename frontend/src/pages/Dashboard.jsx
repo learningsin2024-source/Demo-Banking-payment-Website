@@ -33,7 +33,10 @@ function Dashboard() {
         fetchData();
     }, []);
 
-    if (load) return <div className="p-8 text-gray-500">Loading...</div>;
+    if (load)
+        return (
+            <div className="w-10 h-10 border-4 border-blue-500  flex items-center justify-center mx-auto my-10 border-t-transparent rounded-full animate-spin"></div>
+        );
 
     return (
         <div className="p-8 max-w-4xl mx-auto">
