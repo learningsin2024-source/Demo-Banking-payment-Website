@@ -9,7 +9,9 @@ const DashboardLayout = () => {
                     <Sidebar />
                 </div>
 
-                <div className="bg-white text-black flex-1 overflow-y-auto"></div>
+                <div className="bg-white text-black flex-1 overflow-y-auto">
+                    <Outlet />
+                </div>
             </div>
         </>
     );

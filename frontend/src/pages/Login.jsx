@@ -59,7 +59,11 @@ function Login() {
                     />
 
                     <Button type="submit" disabled={loading}>
-                        {loading ? "Logging in..." : "Login Now"}
+                        {loading ? (
+                            <div className="w-10 h-10 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                        ) : (
+                            "Login Now"
+                        )}
                     </Button>
                     <Link to="/signup" className="mt-3.5 underline">
                         <span>Doesn't have an account ? signup</span>

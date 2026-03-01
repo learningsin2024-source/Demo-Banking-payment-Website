@@ -22,7 +22,7 @@ const Signup = () => {
         setError("");
 
         try {
-            await registerUser({ name, email, password }); // wait for Laravel
+            await registerUser({ name, email, password });
             navigate("/dashboard");
         } catch (err) {
             console.log(err.response?.status, err.response?.data);
@@ -62,7 +62,11 @@ const Signup = () => {
                     />
 
                     <Button type="submit" disabled={loading}>
-                        {loading ? "signing in..." : "SignIn Now"}
+                        {loading ? (
+                            <div className="w-10 h-10 border-4 border-white border-t-transparent rounded-full animate-spin" />
+                        ) : (
+                            "SignIn Now"
+                        )}
                     </Button>
                 </form>
             </AuthLayout>

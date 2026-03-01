@@ -11,7 +11,7 @@ const navLinks = [
 ];
 
 const Sidebar = () => {
-    const { user, logout } = useContext(AuthContext);
+    const { user, logout, loading } = useContext(AuthContext);
     const location = useLocation();
 
     return (
@@ -52,8 +52,12 @@ const Sidebar = () => {
                         <p className="text-xs text-gray-400">{user?.email}</p>
                     </div>
                 </div>
-                <Button onClick={logout} variant="secondary" className="w-full">
-                    Logout
+                <Button onClick={logout} className="w-full" disabled={loading}>
+                    {loading ? (
+                        <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                    ) : (
+                        "LogOut"
+                    )}
                 </Button>
             </div>
         </aside>

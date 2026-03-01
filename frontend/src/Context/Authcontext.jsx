@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import {
     login as apiLogin,
     getUser,
-    logout as apilogOut,
+    logout as apiLogout,
     register as registerApi,
 } from "../services/auth.js";
 
@@ -10,80 +10,64 @@ export const AuthContext = createContext();
 
 function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [loading, SetLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
-    const login = async (Credentials) => {
-        SetLoading(true);
-
+    const login = async (credentials) => {
+        setLoading(true);
         try {
-            const userdata = await apiLogin(Credentials);
-
-            setUser(userdata);
-            setIsAuthenticated(true);
-        } catch (error) {
-            throw error;
+            const userData = await apiLogin(credentials);
+            setUser(userData);
         } finally {
-            SetLoading(false);
+            setLoading(false);
         }
     };
 
     const logout = async () => {
         try {
-            await apilogOut();
-        } catch (error) {
-            console.log(error);
+            await apiLogout();
         } finally {
             setUser(null);
-            setIsAuthenticated(false);
             localStorage.removeItem("token");
-        }
-    };
-    const checkAuth = async () => {
-        SetLoading(true);
-        try {
-            const checkuser = await getUser();
-
-            setUser(checkuser); // add this
-            setIsAuthenticated(!!checkuser); // add this
-        } catch (error) {
-            setUser(null);
-            setIsAuthenticated(false);
-        } finally {
-            SetLoading(false);
         }
     };
 
     const registerUser = async (credentials) => {
-        SetLoading(true);
-
+        setLoading(true);
         try {
-            const user = await registerApi(credentials);
-            setIsAuthenticated(true);
-            return user;
-        } catch (error) {
-            setIsAuthenticated(false);
-            throw error;
+            const userData = await registerApi(credentials);
+            setUser(userData);
         } finally {
-            SetLoading(false);
+            setLoading(false);
         }
     };
+
     useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const existingUser = await getUser();
+                setUser(existingUser);
+            } catch {
+                setUser(null);
+            } finally {
+                setLoading(false);
+            }
+        };
+
         checkAuth();
     }, []);
 
-    const value = {
-        user,
-        isAuthenticated,
-        loading,
-        login,
-        logout,
-        checkAuth,
-        registerUser,
-    };
-
     return (
-        <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+        <AuthContext.Provider
+            value={{
+                user,
+                loading,
+                login,
+                logout,
+                registerUser,
+            }}
+        >
+            {children}
+        </AuthContext.Provider>
     );
 }
 
