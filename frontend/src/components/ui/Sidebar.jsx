@@ -8,18 +8,31 @@ const navLinks = [
     { label: "Transactions", path: "/dashboard/transactions" },
     { label: "Transfer", path: "/dashboard/transfer" },
     { label: "Top Up", path: "/dashboard/topup" },
+    { label: "Settings", path: "/dashboard/settings" },
 ];
 
-const Sidebar = () => {
-    const { user, logout, loading } = useContext(AuthContext);
+const Sidebar = ({ onClose }) => {
+    const { user, logout } = useContext(AuthContext);
     const location = useLocation();
 
     return (
         <aside className="h-screen w-64 flex flex-col bg-white border-r border-gray-200 p-6 shadow-sm">
-            {/* Logo */}
-            <div className="mb-10">
-                <h2 className="text-xl font-bold text-blue-600">💳 BankApp</h2>
-                <p className="text-xs text-gray-400 mt-1">Personal Banking</p>
+            {/* Logo + close button on mobile */}
+            <div className="flex items-center justify-between mb-10">
+                <div>
+                    <h2 className="text-xl font-bold text-blue-600">
+                        💳 BankApp
+                    </h2>
+                    <p className="text-xs text-gray-400 mt-1">
+                        Personal Banking
+                    </p>
+                </div>
+                <button
+                    onClick={onClose}
+                    className="md:hidden text-gray-400 hover:text-gray-600 text-xl"
+                >
+                    ✕
+                </button>
             </div>
 
             {/* Nav Links */}
@@ -28,6 +41,7 @@ const Sidebar = () => {
                     <Link
                         key={link.path}
                         to={link.path}
+                        onClick={onClose}
                         className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                             location.pathname === link.path
                                 ? "bg-blue-600 text-white"
@@ -42,7 +56,7 @@ const Sidebar = () => {
             {/* User & Logout */}
             <div className="border-t border-gray-200 pt-4">
                 <div className="flex items-center gap-3 mb-4">
-                    <div className="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-bold">
+                    <div className="h-9 w-9 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-bold">
                         {user?.name?.charAt(0).toUpperCase()}
                     </div>
                     <div>
@@ -52,12 +66,8 @@ const Sidebar = () => {
                         <p className="text-xs text-gray-400">{user?.email}</p>
                     </div>
                 </div>
-                <Button onClick={logout} className="w-full" disabled={loading}>
-                    {loading ? (
-                        <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
-                    ) : (
-                        "LogOut"
-                    )}
+                <Button onClick={logout} variant="secondary" className="w-full">
+                    Logout
                 </Button>
             </div>
         </aside>

@@ -33,50 +33,22 @@ const Navbar = () => {
 
                     {/* Right Side */}
                     <div className="flex items-center gap-6 text-sm font-medium">
-                        {!user ? (
-                            <>
-                                {/* About Link */}
-                                <Link
-                                    to="/about"
-                                    className=" font-medium  text-gray-600 hover:text-blue-600 transition-colors"
-                                >
-                                    About
-                                </Link>
-                                {currentPath !== "/" && (
-                                    <Link to="/">
-                                        <Button>Login</Button>
-                                    </Link>
-                                )}
+                        <Link
+                            to="/about"
+                            className=" font-medium  text-gray-600 hover:text-blue-600 transition-colors"
+                        >
+                            About
+                        </Link>
+                        {currentPath !== "/" && (
+                            <Link to="/">
+                                <Button>Login</Button>
+                            </Link>
+                        )}
 
-                                {currentPath !== "/signup" && (
-                                    <Link to="/signup">
-                                        <Button>SignUp</Button>
-                                    </Link>
-                                )}
-                            </>
-                        ) : (
-                            <>
-                                <Link
-                                    to="/dashboard"
-                                    className="text-gray-600 hover:text-blue-600 transition-colors"
-                                >
-                                    Dashboard
-                                </Link>
-
-                                <div className="flex items-center gap-2 bg-gray-100 px-3 py-1.5 rounded-full">
-                                    <div className="h-2 w-2 bg-green-500 rounded-full" />
-                                    <span className="text-gray-700">
-                                        {user?.name}
-                                    </span>
-                                </div>
-
-                                <Button
-                                    variant="secondary"
-                                    onClick={handlelogout}
-                                >
-                                    Logout
-                                </Button>
-                            </>
+                        {currentPath !== "/signup" && (
+                            <Link to="/signup">
+                                <Button>SignUp</Button>
+                            </Link>
                         )}
                     </div>
                 </div>
