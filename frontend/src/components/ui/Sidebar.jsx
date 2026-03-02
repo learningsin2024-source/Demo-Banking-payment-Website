@@ -42,7 +42,7 @@ const Sidebar = () => {
             {/* User & Logout */}
             <div className="border-t border-gray-200 pt-4">
                 <div className="flex items-center gap-3 mb-4">
-                    <div className="h-9 w-9 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-bold">
+                    <div className="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-bold">
                         {user?.name?.charAt(0).toUpperCase()}
                     </div>
                     <div>

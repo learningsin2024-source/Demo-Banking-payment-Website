@@ -21,6 +21,7 @@ function Dashboard() {
                     walletbalance(),
                     wallettransactions(),
                 ]);
+
                 setBalance(bcheck);
                 setTransactions(tcheck);
             } catch (error) {
@@ -80,7 +81,7 @@ function Dashboard() {
                     </Link>
                 </div>
 
-                {wallettransactions.length === 0 ? (
+                {transactions.length === 0 ? (
                     <p className="text-sm text-gray-400">
                         No transactions yet.
                     </p>
@@ -92,13 +93,14 @@ function Dashboard() {
                                 <th className="pb-2">Type</th>
                                 <th className="pb-2">Amount</th>
                                 <th className="pb-2">Status</th>
+                                <th className="pb-2">Time</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {wallettransactions.slice(0, 5).map((tx, index) => (
+                            {transactions.slice(0, 5).map((tx, index) => (
                                 <tr
                                     key={index}
-                                    className="border-b last:border-0 hover:bg-slate-50"
+                                    className="border-0 last:border-0 hover:bg-slate-50"
                                 >
                                     <td className="py-3 text-gray-500">
                                         {new Date(
@@ -109,14 +111,20 @@ function Dashboard() {
                                         {tx.type}
                                     </td>
                                     <td
-                                        className={`py-3 font-medium ${tx.type === "debit" ? "text-red-500" : "text-green-500"}`}
+                                        className={`py-3 font-medium ${tx.type === "transfer" ? "text-red-500" : "text-green-500"}`}
                                     >
-                                        {tx.type === "debit" ? "-" : "+"}$
+                                        {tx.type === "transfer" ? "-" : "+"}$
                                         {tx.amount}
                                     </td>
                                     <td className="py-3">
                                         <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs">
                                             {tx.status ?? "success"}
+                                        </span>
+                                    </td>
+                                    <td className="py-3">
+                                        <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs">
+                                            {tx.created_at.slice(0, 16) ??
+                                                "success"}
                                         </span>
                                     </td>
                                 </tr>

@@ -43,7 +43,7 @@ const Navbar = () => {
                                     About
                                 </Link>
                                 {currentPath !== "/" && (
-                                    <Link to="/login">
+                                    <Link to="/">
                                         <Button>Login</Button>
                                     </Link>
                                 )}

@@ -20,11 +20,22 @@ export const transactions = async () => {
     try {
 
         const response = await api.get('/api/transactions')
-        return response.data
+     return response.data.transactions
     } catch(error){
 
          if (error.response?.status === 401) return null;
     throw error;
 
+    }
+}
+
+
+export const topup = async (amount) => {
+    try {
+        const response = await api.post('/api/wallet/top-up', { amount });
+        return response.data;
+    } catch (error) {
+        if (error.response?.status === 401) return null;
+        throw error;
     }
 }
