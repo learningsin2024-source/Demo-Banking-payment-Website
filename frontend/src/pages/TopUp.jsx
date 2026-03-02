@@ -14,7 +14,7 @@ const TopUp = () => {
         e.preventDefault();
 
         setError("");
-        const numericAmount = Number(amount);
+        const numericAmount = parseInt(amount, 10);
 
         if (numericAmount <= 0) {
             setError("Enter an amount above 0");
@@ -29,7 +29,11 @@ const TopUp = () => {
                 });
                 setAmount("");
             } catch (error) {
-                setToast({ message: "Transaction failed", type: "error" });
+                setToast({
+                    message:
+                        error.response?.data?.message || "Transaction failed",
+                    type: "error",
+                });
             } finally {
                 setLoading(false);
             }

@@ -30,9 +30,9 @@ export const transactions = async () => {
 }
 
 
-export const topup = async (credentials) => {
+export const topup = async (amount) => {
     try {
-        const response = await api.post('/api/wallet/top-up', { credentials});
+        const response = await api.post('/api/wallet/top-up', { amount});
         return response.data;
     } catch (error) {
         if (error.response?.status === 401) return null;
