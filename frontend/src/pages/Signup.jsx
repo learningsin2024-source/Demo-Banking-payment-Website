@@ -13,6 +13,7 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
+    const [toast, setToast] = useState(null);
 
     const [error, setError] = useState("");
 
@@ -23,20 +24,35 @@ const Signup = () => {
 
         try {
             await registerUser({ name, email, password });
-            navigate("/dashboard");
+            setToast({
+                message: "Account created successfully",
+                type: "success",
+            });
         } catch (err) {
-            console.log(err.response?.status, err.response?.data);
-            setError(err.response?.data?.message || "invalid credentials");
+            setToast({
+                message: error.response?.data?.message || "Transaction failed",
+                type: "error",
+            });
         }
     };
 
+    useEffect(() => {
+        if (toast) {
+            const timer = setTimeout(() => {
+                if (toast.type === "success") {
+                    navigate("/dashboard", { replace: true });
+                }
+                setToast(null);
+            }, 3000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [toast, navigate]);
     return (
         <>
             <Navbar />
             <AuthLayout logo="" title="Signup To Get Started">
                 <form className="flex flex-col" onSubmit={handleSubmit}>
-                    {error && <p className="text-red-500 mb-2">{error}</p>}
-
                     <Input
                         type="text"
                         placeholder="Input Your Username"
@@ -68,6 +84,14 @@ const Signup = () => {
                             "SignIn Now"
                         )}
                     </Button>
+                    {toast && (
+                        <div
+                            className={`fixed top-15 right-5 px-4 py-3 rounded-lg shadow-lg text-white text-sm transition-all
+                        ${toast.type === "success" ? "bg-green-500" : "bg-red-500"}`}
+                        >
+                            {toast.message}
+                        </div>
+                    )}
                 </form>
             </AuthLayout>
         </>

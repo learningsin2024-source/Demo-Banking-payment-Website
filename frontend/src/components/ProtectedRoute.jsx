@@ -1,11 +1,10 @@
-import { useState, useEffect, useContext } from "react";
-import { useNavigate, Outlet } from "react-router";
+import { Outlet, Navigate } from "react-router-dom";
 
 import { AuthContext } from "../Context/Authcontext";
+import { useContext } from "react";
 
 function ProtectedRoute() {
     const { loading, user } = useContext(AuthContext);
-    const nav = useNavigate();
 
     if (loading)
         return (
@@ -15,8 +14,11 @@ function ProtectedRoute() {
                 </div>
             </>
         );
+    if (!user) {
+        return <Navigate to="/" replace />;
+    }
 
-    return user ? <Outlet /> : nav("/");
+    return <Outlet />;
 }
 
 export default ProtectedRoute;

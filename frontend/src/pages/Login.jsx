@@ -8,21 +8,17 @@ import { Link } from "react-router-dom";
 import Navbar from "../layout/Navbar";
 
 function Login() {
-    const { login, loading, isAuthenticated } = useContext(AuthContext);
+    const { login } = useContext(AuthContext);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if (isAuthenticated) {
-            navigate("/dashboard");
-        }
-    }, [isAuthenticated]);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         setError("");
 
@@ -32,6 +28,8 @@ function Login() {
         } catch (err) {
             console.log(err.response?.status, err.response?.data);
             setError(err.response?.data?.message || "invalid credentials");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -40,8 +38,6 @@ function Login() {
             <Navbar />
             <AuthLayout logo="" title="Login To Your Dashboard">
                 <form className="flex flex-col" onSubmit={handleSubmit}>
-                    {error && <p className="text-red-500 mb-2">{error}</p>}
-
                     <Input
                         type="email"
                         placeholder="Input Your Email"
@@ -68,6 +64,9 @@ function Login() {
                     <Link to="/signup" className="mt-3.5 underline">
                         <span>Doesn't have an account ? signup</span>
                     </Link>
+                    {error && (
+                        <p className="text-red-500 mt-5 text-center">{error}</p>
+                    )}
                 </form>
             </AuthLayout>
         </>

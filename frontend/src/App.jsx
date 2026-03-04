@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -8,12 +8,14 @@ import Transactions from "./pages/Transactions";
 import Transfer from "./pages/Transfer";
 import TopUp from "./pages/TopUp";
 import Settings from "./pages/Settings";
+import NotFound from "./pages/NotFound";
 
 function App() {
     return (
         <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="*" element={<NotFound />} />
 
             <Route element={<ProtectedRoute />}>
                 <Route path="/dashboard" element={<DashboardLayout />}>

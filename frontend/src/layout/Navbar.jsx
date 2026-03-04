@@ -5,14 +5,14 @@ import Button from "../components/ui/Button";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-    const { user, isAuthenticated, logout, loading } = useContext(AuthContext);
+    const { logout, loading } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
     const currentPath = location.pathname;
 
     const handlelogout = async () => {
         await logout();
-        navigate("/login");
+        navigate("/");
     };
 
     if (loading) return null;
