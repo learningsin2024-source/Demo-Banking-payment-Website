@@ -16,7 +16,7 @@ const Sidebar = ({ onClose }) => {
     const location = useLocation();
 
     return (
-        <aside className="h-screen w-64 flex flex-col bg-white border-r border-gray-200 p-6 shadow-sm">
+        <aside className="h-screen w-64 flex flex-col bg-white border-r border-gray-200 p-6 shadow-sm overflow-y-auto">
             {/* Logo + close button on mobile */}
             <div className="flex items-center justify-between mb-10">
                 <div>

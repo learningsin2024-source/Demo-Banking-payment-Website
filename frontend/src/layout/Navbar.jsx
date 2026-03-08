@@ -33,12 +33,15 @@ const Navbar = () => {
 
                     {/* Right Side */}
                     <div className="flex items-center gap-6 text-sm font-medium">
-                        <Link
-                            to="/about"
-                            className=" font-medium  text-gray-600 hover:text-blue-600 transition-colors"
-                        >
-                            About
-                        </Link>
+                        {currentPath !== "/about" && (
+                            <Link
+                                to="/about"
+                                className=" font-medium  text-gray-600 hover:text-blue-600 transition-colors"
+                            >
+                                About
+                            </Link>
+                        )}
+
                         {currentPath !== "/" && (
                             <Link to="/">
                                 <Button>Login</Button>

@@ -96,7 +96,7 @@ const About = () => {
                                     d'Ivoire
                                 </p>
                                 <a
-                                    href="https://github.com/learningsin2024-source"
+                                    href="https://github.com/koumolou"
                                     target="_blank"
                                     className="text-xs text-blue-600 hover:underline"
                                 >

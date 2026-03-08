@@ -25,7 +25,7 @@ const TopUp = () => {
 
             try {
                 await topup(numericAmount);
-                refreshBalance();
+                await refreshBalance();
                 setToast({
                     message: "Transaction successful",
                     type: "success",
