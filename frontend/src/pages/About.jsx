@@ -100,7 +100,7 @@ const About = () => {
                                     target="_blank"
                                     className="text-xs text-blue-600 hover:underline"
                                 >
-                                    github.com/learningsin2024-source
+                                    github.com/koumolou
                                 </a>
                             </div>
                         </div>

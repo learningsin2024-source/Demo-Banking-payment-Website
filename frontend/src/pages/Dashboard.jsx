@@ -5,7 +5,7 @@ import Button from "../components/ui/Button";
 import { transactions as wallettransactions } from "../services/wallet.js";
 
 function Dashboard() {
-    const { user, balance } = useContext(AuthContext);
+    const { user, balance, refreshBalance } = useContext(AuthContext);
 
     const [transactions, setTransactions] = useState([]);
     const [load, setLoad] = useState(true);
@@ -14,8 +14,10 @@ function Dashboard() {
         const fetchData = async () => {
             setLoad(true);
             try {
-                const [tcheck] = await Promise.all([wallettransactions()]);
-
+                const [tcheck] = await Promise.all([
+                    wallettransactions(),
+                    refreshBalance(),
+                ]);
                 setTransactions(tcheck);
             } catch (error) {
                 console.log(error.response?.data?.error);
