@@ -1,19 +1,17 @@
 
 import api from '../lib/axios.js';
 
- export const balance = async () => {
-
-  try {
-     const response = await api.get('api/wallet/balance')
-     return response.data
-  } catch (error) {
-               if (error.response?.status === 429) {
-    throw new Error('Too many attempts. Please wait a moment.');
-  }
-
-    
+export const balance = async () => {
+    try {
+        const response = await api.get('api/wallet/balance');
+        console.log("Full balance API response:", response.data);
+        return response.data;
+    } catch (error) {
+        if (error.response?.status === 429) {
+            throw new Error('Too many attempts. Please wait a moment.');
+        }
+    }
 }
- }
 
 export const transactions = async () => {
 
