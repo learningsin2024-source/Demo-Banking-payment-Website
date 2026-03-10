@@ -16,9 +16,9 @@ const Sidebar = ({ onClose }) => {
     const location = useLocation();
 
     return (
-        <aside className="h-screen w-64 flex flex-col bg-white border-r border-gray-200 p-6 shadow-sm overflow-y-auto">
+        <aside className="h-screen w-64 flex flex-col bg-white border-r border-gray-200 p-6 shadow-sm">
             {/* Logo + close button on mobile */}
-            <div className="flex items-center justify-between mb-10">
+            <div className="flex items-center justify-between mb-10 flex-shrink-0">
                 <div>
                     <h2 className="text-xl font-bold text-blue-600">
                         💳 BankApp
@@ -35,40 +35,52 @@ const Sidebar = ({ onClose }) => {
                 </button>
             </div>
 
-            {/* Nav Links */}
-            <nav className="flex flex-col gap-1 flex-1">
-                {navLinks.map((link) => (
-                    <Link
-                        key={link.path}
-                        to={link.path}
-                        onClick={onClose}
-                        className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                            location.pathname === link.path
-                                ? "bg-blue-600 text-white"
-                                : "text-gray-600 hover:bg-slate-50 hover:text-blue-600"
-                        }`}
-                    >
-                        {link.label}
-                    </Link>
-                ))}
-            </nav>
+            {/* Scrollable middle section */}
+            <div className="flex-1 overflow-y-auto flex flex-col">
+                {/* Nav Links */}
+                <nav className="flex flex-col gap-1">
+                    {navLinks.map((link) => (
+                        <Link
+                            key={link.path}
+                            to={link.path}
+                            onClick={onClose}
+                            className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                                location.pathname === link.path
+                                    ? "bg-blue-600 text-white"
+                                    : "text-gray-600 hover:bg-slate-50 hover:text-blue-600"
+                            }`}
+                        >
+                            {link.label}
+                        </Link>
+                    ))}
+                </nav>
 
-            {/* User & Logout */}
-            <div className="border-t border-gray-200 pt-4">
-                <div className="flex items-center gap-3 mb-4">
-                    <div className="h-9 w-9 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-bold">
-                        {user?.name?.charAt(0).toUpperCase()}
+                {/* Spacer */}
+                <div className="flex-1" />
+
+                {/* User & Logout — always visible at bottom */}
+                <div className="border-t border-gray-200 pt-4 mt-4">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="h-9 w-9 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-bold">
+                            {user?.name?.charAt(0).toUpperCase()}
+                        </div>
+                        <div>
+                            <p className="text-sm font-medium text-gray-800">
+                                {user?.name}
+                            </p>
+                            <p className="text-xs text-gray-400">
+                                {user?.email}
+                            </p>
+                        </div>
                     </div>
-                    <div>
-                        <p className="text-sm font-medium text-gray-800">
-                            {user?.name}
-                        </p>
-                        <p className="text-xs text-gray-400">{user?.email}</p>
-                    </div>
+                    <Button
+                        onClick={logout}
+                        variant="secondary"
+                        className="w-full"
+                    >
+                        Logout
+                    </Button>
                 </div>
-                <Button onClick={logout} variant="secondary" className="w-full">
-                    Logout
-                </Button>
             </div>
         </aside>
     );
